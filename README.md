@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Indica - Order Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6f4e37; /* Coffee Brown */
+            --accent: #25d366; /* WhatsApp Green */
+            --bg: #fcf8f5;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding-bottom: 100px;
+            color: var(--text);
+        }
+
+        /* Header section */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        /* Menu Item Card */
+        .menu-item {
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            align-items: center;
+            padding: 10px;
+        }
+
+        .menu-item img {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        .item-details { flex: 1; padding: 0 15px; }
+
+        .item-name { font-weight: 600; font-size: 17px; margin: 0; }
+
+        .item-price { color: var(--primary); font-weight: bold; font-size: 16px; margin-top: 5px; }
+
+        .add-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .add-btn:active { transform: scale(0.9); }
+
+        /* Contact & Footer Info */
+        .footer-info {
+            background: white;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Floating Cart/Order Button */
+        .cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px;
+            background: var(--accent);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cafe Indica ☕</h1>
+    <p>B-9/24 Kalyani Central Park</p>
+</header>
+
+<div class="container">
+    <div class="category-title">Tea & Coffee</div>
+    <div class="menu-item">
+        <img src="
+        
