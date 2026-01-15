@@ -5,181 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Indica - Order Menu</title>
     <style>
-        :root {
-            --primary-green: #1a3c1a;
-            --light-bg: #f9f9f9;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--light-bg);
-            margin: 0;
-            padding: 15px;
-            padding-bottom: 100px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 3px solid var(--primary-green);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-        }
-
+        :root { --primary-green: #1a3c1a; --light-bg: #f9f9f9; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light-bg); margin: 0; padding: 15px; padding-bottom: 100px; }
+        .container { max-width: 950px; margin: 0 auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        header { text-align: center; border-bottom: 3px solid var(--primary-green); margin-bottom: 30px; padding-bottom: 10px; }
         h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        h2 {
-            color: var(--primary-green);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 25px;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dotted #ccc;
-        }
-
-        .item-info { flex: 1; }
-        .item-name { font-weight: 600; display: block; color: #333; }
-        .item-price { color: #666; font-size: 14px; }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f0f0f0;
-            padding: 5px 12px;
-            border-radius: 25px;
-        }
-
-        .btn-qty {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .qty-val { font-weight: bold; min-width: 20px; text-align: center; }
-
-        .cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background: var(--primary-green);
-            color: white;
-            padding: 18px 25px;
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        .order-btn {
-            background: white;
-            color: var(--primary-green);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        @media (max-width: 700px) {
-            .menu-grid { grid-template-columns: 1fr; }
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        h2 { color: var(--primary-green); border-bottom: 2px solid var(--primary-green); padding-bottom: 5px; margin-top: 25px; font-size: 18px; text-transform: uppercase; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dotted #ccc; }
+        .item-info { flex: 1; margin-right: 10px; }
+        .item-name { font-weight: 600; display: block; color: #333; font-size: 15px; }
+        .item-price { color: #666; font-size: 13px; }
+        .controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 4px 10px; border-radius: 20px; }
+        .btn-qty { background: var(--primary-green); color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        .qty-val { font-weight: bold; min-width: 15px; text-align: center; }
+        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--primary-green); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000; }
+        .order-btn { background: white; color: var(--primary-green); border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>Cafe Indica</h1>
-        <p>Deliciously Yours</p>
-    </header>
-
-    <div class="menu-grid" id="menu-container">
-        <div class="column">
-            <h2>Tea</h2>
-            <div id="tea-items"></div>
-
-            <h2>Coffee</h2>
-            <div id="coffee-items"></div>
-
-            <h2>Salad</h2>
-            <div id="salad-items"></div>
-
-            <h2>Sandwich</h2>
-            <div id="sandwich-items"></div>
-            
-            <h2>Pasta</h2>
-            <div id="pasta-items"></div>
-        </div>
-
-        <div class="column">
-            <h2>Burger</h2>
-            <div id="burger-items"></div>
-
-            <h2>Maggie</h2>
-            <div id="maggie-items"></div>
-
-            <h2>Snacks</h2>
-            <div id="snacks-items"></div>
-
-            <h2>Beverages</h2>
-            <div id="beverage-items"></div>
-
-            <h2>Combos</h2>
-            <div id="combo-items"></div>
-        </div>
-    </div>
-    
-    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">
-        Extra Cheese: ₹20
-    </div>
+    <header><h1>Cafe Indica</h1><p>Deliciously Yours</p></header>
+    <div class="menu-grid" id="menu-container"></div>
+    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">Extra Cheese: ₹20</div>
 </div>
 
 <div class="cart-bar" id="cart-bar">
-    <div>
-        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
-    </div>
+    <div><span id="total-qty">0</span> Items | <span id="total-amt">₹0</span></div>
     <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
 </div>
 
 <script>
     const menuData = {
-        tea: [
-            {n: "Milk Tea (Small)", p: 19}, {n: "Milk Tea (Large)", p: 29}, 
-            {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
-            {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
-        
+        "Tea": [
+            {n: "Milk Tea (S)", p: 19}, {n: "Milk Tea (L)", p: 29}, {n: "Elaichi Tea", p: 29},
+            {n: "Black Tea", p: 19}, {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
+        ],
+        "Coffee": [
+            {n: "Milk Coffee", p: 29}, {n: "Black Coffee", p: 19}, {n: "Cold Coffee", p: 69},
+            {n: "Vanilla Hot Coffee", p: 49}, {n: "Chocolate Hot Coffee", p: 49}
+        ],
+        "Sandwich": [
+            {n: "Veg Sandwich", p: 69}, {n: "Corn Sandwich", p: 79}, {n: "Veg Cheese Sandwich", p: 89},
+            {n: "Chicken Sandwich", p: 89}, {n: "Chicken Cheese Sandwich", p: 109}
+        ],
+        "Burger": [
+            {n: "Veg Burger", p: 59}, {n: "Chicken Burger", p: 79}, {n: "Veg Cheese Burger", p: 79},
+            {n: "Chicken Cheese Burger", p: 99}, {n: "Grilled Chicken Burger", p: 99}
+        ],
+        "Pasta": [
+            {n: "White Sauce Pasta", p: 99}, {n: "Red Tomato Pasta", p: 99}, {n: "Chicken Pasta", p: 139}
+        ],
+        "Maggie": [
+            {n: "Veg Maggie", p: 49}, {n: "Maggie (Plain)", p: 39}, {n: "Corn Maggie", p: 59},
+            {n: "Chicken Maggie", p: 79}, {n: "Egg Maggie", p: 59}
+        ],
+        "Salad": [
+            {n: "High Protein Veg Salad", p: 65}, {n: "High Protein Chicken Salad", p: 129}
+        ],
+        "Snacks": [
+            {n: "French Fries (M)", p: 59}, {n: "French Fries (L)", p: 79}, {n: "Peri Peri Fries (M)", p: 69},
+            {n: "Peri Peri Fries (L)", p: 89}, {n: "Fish Finger (5ps)", p: 119}, {n: "Chicken Finger (5ps)", p: 129},
+            {n: "Chicken Nugget (5ps)", p: 79}, {n: "Chicken Cheese Ball", p: 79}
+        ],
+        "Beverage": [
+            {n: "Lime Soda", p: 79}, {n: "Virgin Mojito", p: 79}, {n: "Blue Lagoon", p: 69},
+            {n: "Kacha Mango Mojito", p: 69}, {n: "Green Apple", p: 69}
+        ],
+        "Combos": [
+            {n: "Fries(M)+Chicken Burger+Soft Drink", p: 149},
+            {n: "Fries(M)+Veg Burger+Veg Sandwich", p: 167},
+            {n: "2 Chicken Sandwich + 5 Fish Finger", p: 269}
+        ]
+    };
+
+    let cart = {};
+
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        let html = '';
+        for (const [cat, items] of Object.entries(menuData)) {
+            html += `<div class="column"><h2>${cat}</h2>`;
+            items.forEach(item => {
+                const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
+                html += `<div class="menu-item"><div class="item-info"><span class="item-name">${item.n}</span><span class="item-price">₹${item.p}</span></div>
+                <div class="controls"><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">-</button>
+                <span class="qty-val" id="qty-${id}">0</span><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button></div></div>`;
+            });
+            html += `</div>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function updateQty(name, price, delta, id) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price };
+        cart[name].qty += delta;
+        if (cart[name].qty <= 0) { delete cart[name]; document.getElementById(`qty-${id}`).innerText = 0; }
+        else { document.getElementById(`qty-${id}`).innerText = cart[name].qty; }
+        updateCartBar();
+    }
+
+    function updateCartBar() {
+        const bar = document.getElementById('cart-bar');
+        let tQty = 0, tAmt = 0;
+        for (const i in cart) { tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); }
+        if (tQty > 0) { bar.style.display = 'flex'; document.getElementById('total-qty').innerText = tQty; document.getElementById('total-amt').innerText = '₹' + tAmt; }
+        else bar.style.display = 'none';
+    }
+
+    function sendToWhatsApp() {
+        let msg = "New Order - Cafe Indica%0A--------------------%0A";
+        let total = 0;
+        for (const i in cart) { msg += `• ${i} x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; total += cart[i].qty * cart[i].price; }
+        msg += `--------------------%0A*Total: ₹${total}*`;
+        window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
+    }
+    renderMenu();
+</script>
+</body>
+</html>
