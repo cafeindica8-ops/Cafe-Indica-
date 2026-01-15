@@ -1,131 +1,194 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Indica - Order Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Cafe Indica - Order Menu</title>
     <style>
         :root {
-            --primary: #6f4e37; /* Coffee Brown */
-            --accent: #25d366; /* WhatsApp Green */
-            --bg: #fcf8f5;
-            --text: #333;
+            --primary-green: #1a3c1a;
+            --light-bg: #f9f9f9;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--light-bg);
             margin: 0;
+            padding: 15px;
             padding-bottom: 100px;
-            color: var(--text);
         }
 
-        /* Header section */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
         header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 40px 20px;
             text-align: center;
-            border-radius: 0 0 30px 30px;
+            border-bottom: 3px solid var(--primary-green);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
         }
 
-        .container { padding: 15px; max-width: 600px; margin: auto; }
+        h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
 
-        .category-title {
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        h2 {
+            color: var(--primary-green);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 25px;
             font-size: 20px;
-            font-weight: 600;
-            margin: 25px 0 15px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
+            text-transform: uppercase;
         }
 
-        /* Menu Item Card */
         .menu-item {
             display: flex;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 12px 0;
+            border-bottom: 1px dotted #ccc;
         }
 
-        .menu-item img {
-            width: 90px;
-            height: 90px;
-            border-radius: 15px;
-            object-fit: cover;
+        .item-info { flex: 1; }
+        .item-name { font-weight: 600; display: block; color: #333; }
+        .item-price { color: #666; font-size: 14px; }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 25px;
         }
 
-        .item-details { flex: 1; padding: 0 15px; }
-
-        .item-name { font-weight: 600; font-size: 17px; margin: 0; }
-
-        .item-price { color: var(--primary); font-weight: bold; font-size: 16px; margin-top: 5px; }
-
-        .add-btn {
-            background-color: var(--primary);
+        .btn-qty {
+            background: var(--primary-green);
             color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: 600;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             cursor: pointer;
-            transition: 0.2s;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .add-btn:active { transform: scale(0.9); }
+        .qty-val { font-weight: bold; min-width: 20px; text-align: center; }
 
-        /* Contact & Footer Info */
-        .footer-info {
-            background: white;
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            font-size: 14px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Floating Cart/Order Button */
         .cart-bar {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 450px;
-            background: var(--accent);
+            max-width: 500px;
+            background: var(--primary-green);
             color: white;
-            padding: 15px 25px;
+            padding: 18px 25px;
             border-radius: 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
             z-index: 1000;
-            border: none;
-            font-size: 18px;
-            font-weight: 600;
         }
 
-        .hidden { display: none; }
+        .order-btn {
+            background: white;
+            color: var(--primary-green);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+            .menu-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Cafe Indica ☕</h1>
-    <p>B-9/24 Kalyani Central Park</p>
-</header>
-
 <div class="container">
-    <div class="category-title">Tea & Coffee</div>
-    <div class="menu-item">
-        <img src="
+    <header>
+        <h1>Cafe Indica</h1>
+        <p>Deliciously Yours</p>
+    </header>
+
+    <div class="menu-grid" id="menu-container">
+        <div class="column">
+            <h2>Tea</h2>
+            <div id="tea-items"></div>
+
+            <h2>Coffee</h2>
+            <div id="coffee-items"></div>
+
+            <h2>Salad</h2>
+            <div id="salad-items"></div>
+
+            <h2>Sandwich</h2>
+            <div id="sandwich-items"></div>
+            
+            <h2>Pasta</h2>
+            <div id="pasta-items"></div>
+        </div>
+
+        <div class="column">
+            <h2>Burger</h2>
+            <div id="burger-items"></div>
+
+            <h2>Maggie</h2>
+            <div id="maggie-items"></div>
+
+            <h2>Snacks</h2>
+            <div id="snacks-items"></div>
+
+            <h2>Beverages</h2>
+            <div id="beverage-items"></div>
+
+            <h2>Combos</h2>
+            <div id="combo-items"></div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">
+        Extra Cheese: ₹20
+    </div>
+</div>
+
+<div class="cart-bar" id="cart-bar">
+    <div>
+        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
+    </div>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
+</div>
+
+<script>
+    const menuData = {
+        tea: [
+            {n: "Milk Tea (Small)", p: 19}, {n: "Milk Tea (Large)", p: 29}, 
+            {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
+            {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
+        ],
+        coffee: [
+            {n: "Hot Coffee", p: 39}, {n: "Black Coffee", p: 29}, {n: "Cold Coffee", p: 69}
+        ],
+        salad: [
+            {n: "High Protein Veg Salad", p: 65} // Price updated to 65
+        ],
+        sandwich: [
+            {n: "Veg Sandwich", p: 4
+             
