@@ -18,6 +18,8 @@
             font-weight: bold;
             font-size: 14px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px; /* Space before menu */
+            border-radius: 10px; /* Thoda curved look */
         }
         .offer-text {
             display: inline-block;
@@ -31,7 +33,7 @@
         /* -------------------------- */
 
         .container { max-width: 950px; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        header { text-align: center; border-bottom: 3px solid var(--primary-green); margin-bottom: 30px; padding-bottom: 10px; }
+        header { text-align: center; border-bottom: 3px solid var(--primary-green); margin-bottom: 15px; padding-bottom: 10px; }
         h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         h2 { color: var(--primary-green); border-bottom: 2px solid var(--primary-green); padding-bottom: 5px; margin-top: 25px; font-size: 18px; text-transform: uppercase; }
@@ -50,14 +52,18 @@
 </head>
 <body>
 
-<div class="offer-slider">
-    <div class="offer-text">
-        🔥 SPECIAL RAMADAN OFFER: BUY 2 BURGERS & GET 1 BURGER FREE! ✨ LIMITED TIME ONLY! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
-    </div>
-</div>
-
 <div class="container">
-    <header><h1>Cafe Indica</h1><p>Deliciously Yours</p></header>
+    <header>
+        <h1>Cafe Indica</h1>
+        <p>Deliciously Yours</p>
+    </header>
+
+    <div class="offer-slider">
+        <div class="offer-text">
+            🔥 SPECIAL RAMADAN OFFER: BUY 2 BURGERS & GET 1 BURGER FREE! ✨ LIMITED TIME ONLY! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
+        </div>
+    </div>
+
     <div class="menu-grid" id="menu-container"></div>
     <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">Extra Cheese: ₹20</div>
 </div>
