@@ -3,74 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Indica - Order Menu</title>
+    <title>Cafe Indica - Premium Menu</title>
     <style>
-        :root { --primary-green: #1a3c1a; --offer-green: #27ae60; --light-bg: #f9f9f9; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light-bg); margin: 0; padding: 0; padding-bottom: 100px; }
+        :root { 
+            --primary-green: #1a3c1a; 
+            --accent-green: #27ae60; 
+            --light-bg: #f4f7f4; 
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
         
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--light-bg); 
+            margin: 0; 
+            padding: 0; 
+            padding-bottom: 110px; 
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Premium Header --- */
+        header { 
+            background: white;
+            padding: 30px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        header h1 { 
+            color: var(--primary-green); 
+            margin: 0; 
+            font-size: 36px; 
+            letter-spacing: 2px;
+            text-transform: uppercase; 
+            font-weight: 800;
+        }
+        header p { margin: 5px 0 0; color: #666; font-style: italic; font-size: 14px; }
+
+        /* --- Sticky Category Navigation --- */
+        .category-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 12px 5px;
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .nav-btn {
+            background: #f0f2f0;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+        }
+        .nav-btn:hover, .nav-btn.active { background: var(--primary-green); color: white; }
+
         /* --- Sliding Offer Bar --- */
         .offer-slider {
             background: #e74c3c;
             color: white;
             overflow: hidden;
             white-space: nowrap;
-            padding: 8px 0;
+            padding: 10px 0;
             font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            border-radius: 10px;
+            font-size: 13px;
+            margin: 15px;
+            border-radius: 12px;
         }
         .offer-text {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 15s linear infinite;
+            animation: marquee 18s linear infinite;
         }
-        @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-        /* -------------------------- */
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        .container { max-width: 950px; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        header { text-align: center; border-bottom: 3px solid var(--primary-green); margin-bottom: 15px; padding-bottom: 10px; }
-        h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        h2 { color: var(--primary-green); border-bottom: 2px solid var(--primary-green); padding-bottom: 5px; margin-top: 25px; font-size: 18px; text-transform: uppercase; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dotted #ccc; }
-        .item-info { flex: 1; margin-right: 10px; }
-        .item-name { font-weight: 600; display: block; color: #333; font-size: 15px; }
-        .item-price { color: #666; font-size: 13px; }
-        .item-offer { color: var(--offer-green); font-size: 11px; font-weight: bold; display: block; margin-top: 2px; }
-        .controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 4px 10px; border-radius: 20px; }
-        .btn-qty { background: var(--primary-green); color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-weight: bold; }
-        .qty-val { font-weight: bold; min-width: 15px; text-align: center; }
-        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--primary-green); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000; }
-        .order-btn { background: white; color: var(--primary-green); border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        /* --- Menu Layout --- */
+        .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        
+        h2 { 
+            color: var(--primary-green); 
+            font-size: 20px; 
+            margin: 40px 0 15px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            text-transform: uppercase;
+        }
+        h2::before { content: ""; width: 4px; height: 20px; background: var(--primary-green); border-radius: 10px; }
+
+        .menu-item { 
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: var(--card-shadow);
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .menu-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+
+        .item-info { flex: 1; margin-right: 15px; }
+        .item-name { font-weight: 700; display: block; color: #222; font-size: 15px; margin-bottom: 4px; }
+        .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
+        .item-offer { color: var(--accent-green); font-size: 11px; font-weight: bold; margin-top: 5px; display: block; }
+
+        /* --- Premium Controls --- */
+        .controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: #f8faf8; 
+            padding: 5px 12px; 
+            border-radius: 25px; 
+            border: 1px solid #eee;
+        }
+        .btn-qty { 
+            background: var(--primary-green); 
+            color: white; 
+            border: none; 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-qty:active { transform: scale(0.9); }
+        .qty-val { font-weight: 800; min-width: 20px; text-align: center; color: var(--primary-green); }
+
+        .extra-note {
+            text-align: center; 
+            margin: 40px 0; 
+            font-weight: bold; 
+            color: #d35400; 
+            background: #fff8e1; 
+            padding: 12px; 
+            border-radius: 12px;
+            border: 1px dashed #f39c12;
+        }
+
+        /* --- Floating Cart Bar --- */
+        .cart-bar { 
+            position: fixed; 
+            bottom: 25px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 85%; 
+            max-width: 450px; 
+            background: var(--primary-green); 
+            color: white; 
+            padding: 14px 25px; 
+            border-radius: 100px; 
+            display: none; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+            z-index: 1000;
+            animation: slideUp 0.4s ease-out;
+        }
+        @keyframes slideUp { from { bottom: -100px; } to { bottom: 25px; } }
+        
+        .order-btn { 
+            background: white; 
+            color: var(--primary-green); 
+            border: none; 
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .order-btn:hover { background: #f0f0f0; }
+
         @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Cafe Indica</h1>
-        <p>Deliciously Yours</p>
-    </header>
+<header>
+    <h1>Cafe Indica</h1>
+    <p>Deliciously Yours</p>
+</header>
 
+<div class="category-nav" id="cat-nav"></div>
+
+<div class="container">
     <div class="offer-slider">
         <div class="offer-text">
             🔥 SPECIAL MEGA OFFER: BUY 2 BURGERS & GET 1 BURGER FREE! ✨ LIMITED TIME ONLY! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
         </div>
     </div>
 
-    <div class="menu-grid" id="menu-container"></div>
-    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">Extra Cheese: ₹20</div>
+    <div id="menu-container"></div>
+    
+    <div class="extra-note">🧀 Want it extra cheesy? Add Extra Cheese for just ₹20</div>
 </div>
 
 <div class="cart-bar" id="cart-bar">
-    <div><span id="total-qty">0</span> Items | <span id="total-amt">₹0</span></div>
-    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
+    <div><b id="total-qty">0</b> Items | <b id="total-amt">₹0</b></div>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order Now &rarr;</button>
 </div>
 
 <script>
@@ -121,20 +269,38 @@
 
     function renderMenu() {
         const container = document.getElementById('menu-container');
-        let html = '';
+        const nav = document.getElementById('cat-nav');
+        let menuHtml = '';
+        let navHtml = '';
+
         for (const [cat, items] of Object.entries(menuData)) {
-            html += `<div class="column"><h2>${cat}</h2>`;
+            const catId = cat.toLowerCase().replace(/\s+/g, '-');
+            
+            navHtml += `<button class="nav-btn" onclick="document.getElementById('${catId}').scrollIntoView()">${cat}</button>`;
+            
+            menuHtml += `<h2 id="${catId}">${cat}</h2><div class="menu-grid">`;
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                let offerTag = (cat === "Burger") ? `<span class="item-offer">B2G1 Free Applied</span>` : '';
+                let offerTag = (cat === "Burger") ? `<span class="item-offer">⭐ B2G1 FREE APPLIED</span>` : '';
 
-                html += `<div class="menu-item"><div class="item-info"><span class="item-name">${item.n}</span><span class="item-price">₹${item.p}</span>${offerTag}</div>
-                <div class="controls"><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${cat}')">-</button>
-                <span class="qty-val" id="qty-${id}">0</span><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}','${cat}')">+</button></div></div>`;
+                menuHtml += `
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">${item.n}</span>
+                        <span class="item-price">₹${item.p}</span>
+                        ${offerTag}
+                    </div>
+                    <div class="controls">
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${cat}')">−</button>
+                        <span class="qty-val" id="qty-${id}">0</span>
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}','${cat}')">+</button>
+                    </div>
+                </div>`;
             });
-            html += `</div>`;
+            menuHtml += `</div>`;
         }
-        container.innerHTML = html;
+        container.innerHTML = menuHtml;
+        nav.innerHTML = navHtml;
     }
 
     function updateQty(name, price, delta, id, category) {
@@ -160,19 +326,19 @@
     }
 
     function sendToWhatsApp() {
-        let msg = "New Order - Cafe Indica%0A--------------------%0A";
+        let msg = "🍔 *New Order - Cafe Indica*%0A---------------------------%0A";
         let total = 0, bQty = 0, bPrice = 0;
         for (const i in cart) { 
-            msg += `• ${i} x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
+            msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
             total += cart[i].qty * cart[i].price;
             if(cart[i].cat === "Burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
         }
         if (bQty >= 3) {
             let disc = Math.floor(bQty/3) * bPrice;
             total -= disc;
-            msg += `%0A🎁 Offer: B2G1 FREE (-₹${disc})%0A`;
+            msg += `%0A🎁 *Offer Applied: B2G1 FREE (-₹${disc})*%0A`;
         }
-        msg += `--------------------%0A*Total: ₹${total}*`;
+        msg += `---------------------------%0A*Total Payable: ₹${total}*`;
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
     renderMenu();
