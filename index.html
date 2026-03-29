@@ -10,6 +10,7 @@
         .container { max-width: 950px; margin: 0 auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         header { text-align: center; border-bottom: 3px solid var(--primary-green); margin-bottom: 30px; padding-bottom: 10px; }
         h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
+        .offer-tag { background: #e74c3c; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 10px; display: inline-block; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         h2 { color: var(--primary-green); border-bottom: 2px solid var(--primary-green); padding-bottom: 5px; margin-top: 25px; font-size: 18px; text-transform: uppercase; }
         .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dotted #ccc; }
@@ -27,7 +28,11 @@
 <body>
 
 <div class="container">
-    <header><h1>Cafe Indica</h1><p>Deliciously Yours</p></header>
+    <header>
+        <h1>Cafe Indica</h1>
+        <p>Deliciously Yours</p>
+        <div class="offer-tag">🔥 SPECIAL OFFER: Buy 2 Burgers, Get 1 FREE!</div>
+    </header>
     <div class="menu-grid" id="menu-container"></div>
     <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">Extra Cheese: ₹20</div>
 </div>
@@ -91,16 +96,16 @@
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 html += `<div class="menu-item"><div class="item-info"><span class="item-name">${item.n}</span><span class="item-price">₹${item.p}</span></div>
-                <div class="controls"><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}')">-</button>
-                <span class="qty-val" id="qty-${id}">0</span><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}')">+</button></div></div>`;
+                <div class="controls"><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${cat}')">-</button>
+                <span class="qty-val" id="qty-${id}">0</span><button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}','${cat}')">+</button></div></div>`;
             });
             html += `</div>`;
         }
         container.innerHTML = html;
     }
 
-    function updateQty(name, price, delta, id) {
-        if (!cart[name]) cart[name] = { qty: 0, price: price };
+    function updateQty(name, price, delta, id, category) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price, cat: category };
         cart[name].qty += delta;
         if (cart[name].qty <= 0) { delete cart[name]; document.getElementById(`qty-${id}`).innerText = 0; }
         else { document.getElementById(`qty-${id}`).innerText = cart[name].qty; }
@@ -110,16 +115,58 @@
     function updateCartBar() {
         const bar = document.getElementById('cart-bar');
         let tQty = 0, tAmt = 0;
-        for (const i in cart) { tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); }
-        if (tQty > 0) { bar.style.display = 'flex'; document.getElementById('total-qty').innerText = tQty; document.getElementById('total-amt').innerText = '₹' + tAmt; }
+        
+        let burgerQty = 0;
+        for (const i in cart) {
+            tQty += cart[i].qty;
+            if (cart[i].cat === "Burger") {
+                burgerQty += cart[i].qty;
+            }
+            tAmt += (cart[i].qty * cart[i].price);
+        }
+
+        // Offer: Buy 2 get 1 free on burgers
+        // We subtract the price of 1 cheapest burger for every 3 burgers
+        if (burgerQty >= 3) {
+            let freeBurgers = Math.floor(burgerQty / 3);
+            // Simple logic: subtracting the price of the first burger found (usually cheapest/first added)
+            // For more accuracy, you'd find the min price burger in cart
+            let burgerPrice = 0;
+            for(let i in cart) { if(cart[i].cat === "Burger") { burgerPrice = cart[i].price; break; } }
+            tAmt -= (freeBurgers * burgerPrice);
+        }
+
+        if (tQty > 0) { 
+            bar.style.display = 'flex'; 
+            document.getElementById('total-qty').innerText = tQty; 
+            document.getElementById('total-amt').innerText = '₹' + tAmt; 
+        }
         else bar.style.display = 'none';
     }
 
     function sendToWhatsApp() {
         let msg = "New Order - Cafe Indica%0A--------------------%0A";
         let total = 0;
-        for (const i in cart) { msg += `• ${i} x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; total += cart[i].qty * cart[i].price; }
-        msg += `--------------------%0A*Total: ₹${total}*`;
+        let burgerQty = 0;
+        let burgerPrice = 0;
+
+        for (const i in cart) { 
+            msg += `• ${i} x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
+            total += cart[i].qty * cart[i].price; 
+            if(cart[i].cat === "Burger") {
+                burgerQty += cart[i].qty;
+                burgerPrice = cart[i].price;
+            }
+        }
+
+        if (burgerQty >= 3) {
+            let freeCount = Math.floor(burgerQty / 3);
+            let discount = freeCount * burgerPrice;
+            total -= discount;
+            msg += `Offer Applied: Buy 2 Get 1 Free Burger (-₹${discount})%0A`;
+        }
+
+        msg += `--------------------%0A*Total Payable: ₹${total}*`;
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
     renderMenu();
