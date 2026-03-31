@@ -100,6 +100,7 @@
         .item-info { flex: 1; margin-right: 15px; }
         .item-name { font-weight: 700; display: block; color: var(--text-color); font-size: 15px; margin-bottom: 4px; }
         .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
+        .item-offer { color: var(--accent-green); font-size: 11px; font-weight: bold; margin-top: 5px; display: block; }
         
         .controls { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 12px; border-radius: 25px; }
         .btn-qty { background: var(--primary-green); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
@@ -158,7 +159,7 @@
             {n: "Chicken Cheese Sandwich", p: 120, b: true}
         ],
         "Burger 🍔": [
-            {n: "Veg Burger", p: 70}, {n: "Chicken Burger", p: 90}, {n: "Veg Cheese Burger", p: 90},
+            {n: "Veg Burger", p: 70, b: true}, {n: "Chicken Burger", p: 90, b: true}, {n: "Veg Cheese Burger", p: 90},
             {n: "Chicken Cheese Burger", p: 110}, {n: "Grilled Chicken Burger", p: 110}
         ],
         "Pasta 🍝": [
@@ -209,6 +210,7 @@
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let badge = (cat.includes("Momo")) ? (item.n.includes("Pan") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>') : '';
                 let bestTag = item.b ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
+                let offerTag = (cat.includes("Burger")) ? `<span class="item-offer">⭐ B2G1 FREE APPLIED</span>` : '';
 
                 menuHtml += `
                 <div class="menu-item">
@@ -216,6 +218,7 @@
                     <div class="item-info">
                         <span class="item-name">${item.n}${badge}</span>
                         <span class="item-price">₹${item.p}</span>
+                        ${offerTag}
                     </div>
                     <div class="controls">
                         <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${catId}')">−</button>
@@ -261,7 +264,7 @@
         if (bQty >= 3) total -= (Math.floor(bQty/3) * bPrice);
         if (hasMomo) msg += "%0A🥟 *Note:* Pack extra Chutney & Mayo!%0A";
         msg += `---------------------------%0A*Total Payable: ₹${total}*`;
-        window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
+        window.open(`https://wa.me/918100565299?text=${msg}`, '_blank');
     }
     renderMenu();
 </script>
