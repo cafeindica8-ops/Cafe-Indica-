@@ -140,48 +140,46 @@
 <script>
     const menuData = {
         "Tea ☕": [
-            {n: "Lemon Tea", p: 15, b: true}, {n: "Masala Lemon Tea", p: 20, b: true},
             {n: "Milk Tea (S)", p: 20}, {n: "Milk Tea (L)", p: 30}, {n: "Elaichi Tea", p: 30},
-            {n: "Black Tea", p: 20}, {n: "Green Tea", p: 20}
+            {n: "Black Tea", p: 20}, {n: "Lemon Tea", p: 15, b: true}, {n: "Masala Lemon Tea", p: 20, b: true}, {n: "Green Tea", p: 20}
         ],
         "Coffee ☕": [
-            {n: "Cold Coffee", p: 70, b: true},
-            {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20},
+            {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20}, {n: "Cold Coffee", p: 70, b: true},
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
         ],
         "Momo 🥟": [
             {n: "Fried Chicken Momo (6ps)", p: 90},
             {n: "Pan-Fried Chicken Momo (6ps)", p: 120}
         ],
+        "Sandwich 🥪": [
+            {n: "Veg Sandwich", p: 80}, {n: "Corn Sandwich", p: 90}, 
+            {n: "Veg Cheese Sandwich", p: 100, b: true},
+            {n: "Chicken Sandwich", p: 100}, 
+            {n: "Chicken Cheese Sandwich", p: 120, b: true}
+        ],
         "Burger 🍔": [
-            {n: "Chicken Burger", p: 90}, {n: "Veg Burger", p: 70}, {n: "Veg Cheese Burger", p: 90},
+            {n: "Veg Burger", p: 70}, {n: "Chicken Burger", p: 90}, {n: "Veg Cheese Burger", p: 90},
             {n: "Chicken Cheese Burger", p: 110}, {n: "Grilled Chicken Burger", p: 110}
         ],
-        "Sandwich 🥪": [
-            {n: "Veg Sandwich", p: 80}, {n: "Corn Sandwich", p: 90}, {n: "Veg Cheese Sandwich", p: 100},
-            {n: "Chicken Sandwich", p: 100}, {n: "Chicken Cheese Sandwich", p: 120}
-        ],
         "Pasta 🍝": [
-            {n: "Chicken Pasta", p: 150, b: true},
-            {n: "White Sauce Pasta", p: 110}, {n: "Red Tomato Pasta", p: 110}
+            {n: "White Sauce Pasta", p: 110}, {n: "Red Tomato Pasta", p: 110}, {n: "Chicken Pasta", p: 150, b: true}
         ],
         "Maggie 🍜": [
-            {n: "Chicken Maggie", p: 90, b: true},
-            {n: "Veg Maggie", p: 60}, {n: "Maggie (Plain)", p: 50}, {n: "Corn Maggie", p: 70}, {n: "Egg Maggie", p: 70}
+            {n: "Veg Maggie", p: 60}, {n: "Maggie (Plain)", p: 50}, {n: "Corn Maggie", p: 70},
+            {n: "Chicken Maggie", p: 90, b: true}, {n: "Egg Maggie", p: 70}
         ],
         "Salad 🥗": [
-            {n: "High Protein Chicken Salad", p: 150, b: true},
-            {n: "High Protein Veg Salad", p: 66}
+            {n: "High Protein Veg Salad", p: 66}, {n: "High Protein Chicken Salad", p: 150, b: true}
         ],
         "Snacks 🍟": [
-            {n: "French Fries (M)", p: 70, b: true}, {n: "French Fries (L)", p: 90, b: true},
-            {n: "Chicken Nugget (5ps)", p: 90, b: true},
-            {n: "Peri Peri Fries (M)", p: 100}, {n: "Peri Peri Fries (L)", p: 120},
-            {n: "Fish Finger (5ps)", p: 130}, {n: "Chicken Finger (5ps)", p: 140}, {n: "Chicken Cheese Ball", p: 90}
+            {n: "French Fries (M)", p: 70, b: true}, {n: "French Fries (L)", p: 90, b: true}, 
+            {n: "Peri Peri Fries (M)", p: 100}, {n: "Peri Peri Fries (L)", p: 120}, 
+            {n: "Fish Finger (5ps)", p: 130}, {n: "Chicken Finger (5ps)", p: 140},
+            {n: "Chicken Nugget (5ps)", p: 90, b: true}, {n: "Chicken Cheese Ball", p: 90}
         ],
         "Beverage 🍹": [
-            {n: "Blue Lagoon", p: 80, b: true},
-            {n: "Lime Soda", p: 80}, {n: "Virgin Mojito", p: 80}, {n: "Kacha Mango Mojito", p: 80}, {n: "Green Apple", p: 80}
+            {n: "Lime Soda", p: 80}, {n: "Virgin Mojito", p: 80}, {n: "Blue Lagoon", p: 80, b: true},
+            {n: "Kacha Mango Mojito", p: 80}, {n: "Green Apple", p: 80}
         ],
         "Combos 🎁": [
             {n: "Fries(M)+Chicken Burger+Soft Drink", p: 150, b: true},
