@@ -150,13 +150,15 @@
             z-index: 2;
         }
 
+        /* Update: Applied Offer Style changed (No Icon, Price Color, Bold Font) */
         .applied-offer {
             display: block;
-            font-size: 10px;
-            color: #d35400;
-            font-weight: bold;
-            margin-top: 2px;
+            font-size: 11px;
+            color: #2ecc71; /* Same as Price Color */
+            font-weight: 800; /* Extra Bold Font */
+            margin-top: 3px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .item-info { flex: 1; margin-right: 15px; }
@@ -278,7 +280,9 @@
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let bestTag = item.best ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
-                let offerTag = item.offer ? '<span class="applied-offer">🎁 Buy 2 Get 1 FREE Applied</span>' : '';
+                
+                // Update: Offer text applied without gift icon
+                let offerTag = item.offer ? '<span class="applied-offer">Buy 2 Get 1 FREE Applied</span>' : '';
 
                 menuHtml += `
                 <div class="menu-item">
@@ -315,11 +319,9 @@
             tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); 
             if(cart[i].cat === "burger") { 
                 bQty += cart[i].qty; 
-                // Tracking cheapest burger for free item
                 if (bPrice === 0 || cart[i].price < bPrice) bPrice = cart[i].price; 
             }
         }
-        // Burger Offer Logic
         if (bQty >= 3) tAmt -= (Math.floor(bQty/3) * bPrice);
         
         if (tQty > 0) { bar.style.display = 'flex'; document.getElementById('total-qty').innerText = tQty; document.getElementById('total-amt').innerText = '₹' + tAmt; }
