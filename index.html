@@ -10,7 +10,17 @@
             --accent-green: #27ae60; 
             --momo-orange: #e67e22;
             --light-bg: #f4f7f4; 
+            --card-bg: #ffffff;
+            --text-color: #333333;
             --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- Dark Mode Variables --- */
+        body.dark-mode {
+            --light-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         
         body { 
@@ -19,16 +29,35 @@
             margin: 0; 
             padding: 0; 
             padding-bottom: 110px; 
-            color: #333;
+            color: var(--text-color);
+            transition: 0.3s;
             scroll-behavior: smooth;
         }
 
-        /* --- Premium Header --- */
+        /* --- Premium Header & Theme Toggle --- */
         header { 
-            background: white;
+            background: var(--card-bg);
             padding: 30px 15px;
             text-align: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         header h1 { 
             color: var(--primary-green); 
@@ -44,46 +73,38 @@
         .category-nav {
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             z-index: 100;
             padding: 12px 5px;
             display: flex;
             overflow-x: auto;
             gap: 10px;
-            border-bottom: 1px solid #eee;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         .category-nav::-webkit-scrollbar { display: none; }
         .nav-btn {
-            background: #f0f2f0;
+            background: rgba(0,0,0,0.05);
             border: none;
             padding: 8px 18px;
             border-radius: 20px;
             white-space: nowrap;
             font-weight: 600;
-            color: #555;
+            color: var(--text-color);
             cursor: pointer;
             transition: 0.3s;
             font-size: 13px;
         }
-        .nav-btn:hover, .nav-btn.active { background: var(--primary-green); color: white; }
+        .nav-btn:hover { background: var(--primary-green); color: white; }
 
-        /* --- Highlight MOMO Button --- */
         .nav-btn[onclick*="momo"] {
             background: var(--momo-orange) !important;
             color: white !important;
-            font-weight: 800;
-            box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
             animation: pulse-momo 2s infinite;
         }
-        @keyframes pulse-momo {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse-momo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* --- Sliding Offer Bar (Hybrid) --- */
+        /* --- Offer Bar --- */
         .offer-slider {
             background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c);
             color: white;
@@ -94,26 +115,9 @@
             font-size: 13px;
             margin: 15px;
             border-radius: 12px;
-            border: 1px solid #fff;
         }
-        .offer-text {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 20s linear infinite;
-        }
+        .offer-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-
-        .new-label {
-            background: white;
-            color: #e74c3c;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-right: 5px;
-            vertical-align: middle;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
 
         /* --- Menu Layout --- */
         .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
@@ -129,12 +133,11 @@
             text-transform: uppercase;
         }
         h2::before { content: ""; width: 4px; height: 20px; background: var(--primary-green); border-radius: 10px; }
-
         h2#momo { color: var(--momo-orange); }
         h2#momo::before { background: var(--momo-orange); }
 
         .menu-item { 
-            background: white;
+            background: var(--card-bg);
             padding: 18px;
             border-radius: 18px;
             display: flex; 
@@ -145,100 +148,43 @@
             border: 1px solid rgba(0,0,0,0.02);
             position: relative;
         }
-        .menu-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+        .menu-item:hover { transform: translateY(-3px); }
 
-        /* Momo Card Specific */
-        [id="momo"] + .menu-grid .menu-item {
-            border: 1.5px solid rgba(230, 126, 34, 0.3);
-            background: #fffdfa;
-        }
-
-        .momo-badge {
+        /* Best Seller Tag */
+        .best-seller-tag {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #f1c40f;
+            color: #000;
             font-size: 9px;
-            background: var(--momo-orange);
-            color: white;
+            font-weight: 800;
             padding: 2px 8px;
             border-radius: 4px;
-            margin-left: 8px;
-            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .item-info { flex: 1; margin-right: 15px; }
-        .item-name { font-weight: 700; display: block; color: #222; font-size: 15px; margin-bottom: 4px; }
-        .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
-        .item-offer { color: var(--accent-green); font-size: 11px; font-weight: bold; margin-top: 5px; display: block; }
+        .momo-badge { font-size: 9px; background: var(--momo-orange); color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: bold; }
 
-        /* --- Premium Controls --- */
+        .item-info { flex: 1; margin-right: 15px; }
+        .item-name { font-weight: 700; display: block; color: var(--text-color); font-size: 15px; margin-bottom: 4px; }
+        .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
+        
         .controls { 
             display: flex; 
             align-items: center; 
             gap: 10px; 
-            background: #f8faf8; 
+            background: rgba(0,0,0,0.05); 
             padding: 5px 12px; 
             border-radius: 25px; 
-            border: 1px solid #eee;
         }
-        .btn-qty { 
-            background: var(--primary-green); 
-            color: white; 
-            border: none; 
-            width: 28px; 
-            height: 28px; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-qty:active { transform: scale(0.9); }
+        .btn-qty { background: var(--primary-green); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
         .qty-val { font-weight: 800; min-width: 20px; text-align: center; color: var(--primary-green); }
 
-        .extra-note {
-            text-align: center; 
-            margin: 40px 0; 
-            font-weight: bold; 
-            color: #d35400; 
-            background: #fff8e1; 
-            padding: 12px; 
-            border-radius: 12px;
-            border: 1px dashed #f39c12;
-        }
+        .extra-note { text-align: center; margin: 40px 0; font-weight: bold; color: #d35400; background: #fff8e1; padding: 12px; border-radius: 12px; border: 1px dashed #f39c12; }
 
-        /* --- Floating Cart Bar --- */
-        .cart-bar { 
-            position: fixed; 
-            bottom: 25px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 85%; 
-            max-width: 450px; 
-            background: var(--primary-green); 
-            color: white; 
-            padding: 14px 25px; 
-            border-radius: 100px; 
-            display: none; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
-            z-index: 1000;
-            animation: slideUp 0.4s ease-out;
-        }
-        @keyframes slideUp { from { bottom: -100px; } to { bottom: 25px; } }
-        
-        .order-btn { 
-            background: white; 
-            color: var(--primary-green); 
-            border: none; 
-            padding: 10px 22px; 
-            border-radius: 50px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            transition: 0.3s;
-            font-size: 14px;
-        }
-        .order-btn:hover { background: #f0f0f0; }
+        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 450px; background: var(--primary-green); color: white; padding: 14px 25px; border-radius: 100px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1000; }
+        .order-btn { background: white; color: var(--primary-green); border: none; padding: 10px 22px; border-radius: 50px; font-weight: 800; cursor: pointer; }
 
         @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
     </style>
@@ -246,6 +192,7 @@
 <body>
 
 <header>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="theme-btn">🌙</button>
     <h1>Cafe Indica</h1>
     <p>Deliciously Yours</p>
 </header>
@@ -255,13 +202,10 @@
 <div class="container">
     <div class="offer-slider">
         <div class="offer-text">
-            <span class="new-label">NEW</span> 🥟 JUST ARRIVED: CRISPY FRIED & PAN-FRIED CHICKEN MOMOS! TRY NOW! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            🔥 MEGA OFFER: BUY 2 BURGERS & GET 1 FREE! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
+            🥟 NEW ARRIVAL: CRISPY FRIED & PAN-FRIED CHICKEN MOMOS! TRY NOW! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 🔥 MEGA OFFER: BUY 2 BURGERS & GET 1 FREE! 🍔
         </div>
     </div>
-
     <div id="menu-container"></div>
-    
     <div class="extra-note">🧀 Want it extra cheesy? Add Extra Cheese for just ₹20</div>
 </div>
 
@@ -272,46 +216,47 @@
 
 <script>
     const menuData = {
-        "Tea": [
+        "Tea ☕": [
             {n: "Milk Tea (S)", p: 20}, {n: "Milk Tea (L)", p: 30}, {n: "Elaichi Tea", p: 30},
             {n: "Black Tea", p: 20}, {n: "Lemon Tea", p: 15}, {n: "Masala Lemon Tea", p: 20}, {n: "Green Tea", p: 20}
         ],
-        "Coffee": [
+        "Coffee ☕": [
             {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20}, {n: "Cold Coffee", p: 70},
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
         ],
-        "Momo": [
+        "Momo 🥟": [
             {n: "Fried Chicken Momo (6ps)", p: 90},
             {n: "Pan-Fried Chicken Momo (6ps)", p: 120}
         ],
-        "Sandwich": [
+        "Burger 🍔": [
+            {n: "Chicken Burger", p: 90, best: true},
+            {n: "Veg Burger", p: 70}, {n: "Veg Cheese Burger", p: 90},
+            {n: "Chicken Cheese Burger", p: 110}, {n: "Grilled Chicken Burger", p: 110}
+        ],
+        "Sandwich 🥪": [
             {n: "Veg Sandwich", p: 80}, {n: "Corn Sandwich", p: 90}, {n: "Veg Cheese Sandwich", p: 100},
             {n: "Chicken Sandwich", p: 100}, {n: "Chicken Cheese Sandwich", p: 120}
         ],
-        "Burger": [
-            {n: "Veg Burger", p: 70}, {n: "Chicken Burger", p: 90}, {n: "Veg Cheese Burger", p: 90},
-            {n: "Chicken Cheese Burger", p: 110}, {n: "Grilled Chicken Burger", p: 110}
-        ],
-        "Pasta": [
+        "Pasta 🍝": [
             {n: "White Sauce Pasta", p: 110}, {n: "Red Tomato Pasta", p: 110}, {n: "Chicken Pasta", p: 150}
         ],
-        "Maggie": [
+        "Maggie 🍜": [
             {n: "Veg Maggie", p: 60}, {n: "Maggie (Plain)", p: 50}, {n: "Corn Maggie", p: 70},
             {n: "Chicken Maggie", p: 90}, {n: "Egg Maggie", p: 70}
         ],
-        "Salad": [
+        "Salad 🥗": [
             {n: "High Protein Veg Salad", p: 66}, {n: "High Protein Chicken Salad", p: 150}
         ],
-        "Snacks": [
+        "Snacks 🍟": [
             {n: "French Fries (M)", p: 70}, {n: "French Fries (L)", p: 90}, {n: "Peri Peri Fries (M)", p: 100},
             {n: "Peri Peri Fries (L)", p: 120}, {n: "Fish Finger (5ps)", p: 130}, {n: "Chicken Finger (5ps)", p: 140},
             {n: "Chicken Nugget (5ps)", p: 90}, {n: "Chicken Cheese Ball", p: 90}
         ],
-        "Beverage": [
+        "Beverage 🍹": [
             {n: "Lime Soda", p: 80}, {n: "Virgin Mojito", p: 80}, {n: "Blue Lagoon", p: 80},
             {n: "Kacha Mango Mojito", p: 80}, {n: "Green Apple", p: 80}
         ],
-        "Combos": [
+        "Combos 🎁": [
             {n: "Fries(M)+Chicken Burger+Soft Drink", p: 150},
             {n: "Fries(M)+Veg Burger+Veg Sandwich", p: 168},
             {n: "2 Chicken Sandwich + 5 Fish Finger", p: 270}
@@ -320,49 +265,48 @@
 
     let cart = {};
 
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const btn = document.getElementById('theme-btn');
+        btn.innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    }
+
     function renderMenu() {
         const container = document.getElementById('menu-container');
         const nav = document.getElementById('cat-nav');
-        let menuHtml = '';
-        let navHtml = '';
+        let menuHtml = '', navHtml = '';
 
         for (const [cat, items] of Object.entries(menuData)) {
-            const catId = cat.toLowerCase().replace(/\s+/g, '-');
+            const catId = cat.split(' ')[0].toLowerCase();
             navHtml += `<button class="nav-btn" onclick="document.getElementById('${catId}').scrollIntoView({behavior: 'smooth'})">${cat}</button>`;
-            
             menuHtml += `<h2 id="${catId}">${cat}</h2><div class="menu-grid">`;
+            
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                let offerTag = (cat === "Burger") ? `<span class="item-offer">⭐ B2G1 FREE APPLIED</span>` : '';
-                
-                // Special Badge for Momo
-                let badge = "";
-                if(cat === "Momo") {
-                    badge = item.n.includes("Pan-Fried") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>';
-                }
+                let badge = (cat.includes("Momo")) ? (item.n.includes("Pan") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>') : '';
+                let bestTag = item.best ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
 
                 menuHtml += `
                 <div class="menu-item">
+                    ${bestTag}
                     <div class="item-info">
                         <span class="item-name">${item.n}${badge}</span>
                         <span class="item-price">₹${item.p}</span>
-                        ${offerTag}
                     </div>
                     <div class="controls">
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${cat}')">−</button>
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${catId}')">−</button>
                         <span class="qty-val" id="qty-${id}">0</span>
-                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}','${cat}')">+</button>
+                        <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},1,'${id}','${catId}')">+</button>
                     </div>
                 </div>`;
             });
             menuHtml += `</div>`;
         }
-        container.innerHTML = menuHtml;
-        nav.innerHTML = navHtml;
+        container.innerHTML = menuHtml; nav.innerHTML = navHtml;
     }
 
-    function updateQty(name, price, delta, id, category) {
-        if (!cart[name]) cart[name] = { qty: 0, price: price, cat: category };
+    function updateQty(name, price, delta, id, catId) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price, cat: catId };
         cart[name].qty += delta;
         if (cart[name].qty <= 0) { delete cart[name]; document.getElementById(`qty-${id}`).innerText = 0; }
         else { document.getElementById(`qty-${id}`).innerText = cart[name].qty; }
@@ -373,12 +317,10 @@
         const bar = document.getElementById('cart-bar');
         let tQty = 0, tAmt = 0, bQty = 0, bPrice = 0;
         for (const i in cart) { 
-            tQty += cart[i].qty; 
-            tAmt += (cart[i].qty * cart[i].price); 
-            if(cart[i].cat === "Burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
+            tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); 
+            if(cart[i].cat === "burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
         }
         if (bQty >= 3) tAmt -= (Math.floor(bQty/3) * bPrice);
-
         if (tQty > 0) { bar.style.display = 'flex'; document.getElementById('total-qty').innerText = tQty; document.getElementById('total-amt').innerText = '₹' + tAmt; }
         else bar.style.display = 'none';
     }
@@ -389,17 +331,11 @@
         for (const i in cart) { 
             msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
             total += cart[i].qty * cart[i].price;
-            if(cart[i].cat === "Burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
-            if(cart[i].cat === "Momo") hasMomo = true;
+            if(cart[i].cat === "burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
+            if(cart[i].cat === "momo") hasMomo = true;
         }
-        if (bQty >= 3) {
-            let disc = Math.floor(bQty/3) * bPrice;
-            total -= disc;
-            msg += `%0A🎁 *Offer Applied: B2G1 FREE (-₹${disc})*%0A`;
-        }
-        if (hasMomo) {
-            msg += `%0A🥟 *Note:* Please pack extra Spicy Chutney & Mayo!%0A`;
-        }
+        if (bQty >= 3) total -= (Math.floor(bQty/3) * bPrice);
+        if (hasMomo) msg += "%0A🥟 *Note:* Pack extra Chutney & Mayo!%0A";
         msg += `---------------------------%0A*Total Payable: ₹${total}*`;
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
