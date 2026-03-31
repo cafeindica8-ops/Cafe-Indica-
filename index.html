@@ -15,7 +15,6 @@
             --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        /* --- Dark Mode Variables --- */
         body.dark-mode {
             --light-bg: #121212;
             --card-bg: #1e1e1e;
@@ -34,7 +33,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- Premium Header & Theme Toggle --- */
         header { 
             background: var(--card-bg);
             padding: 30px 15px;
@@ -59,17 +57,9 @@
             align-items: center;
             justify-content: center;
         }
-        header h1 { 
-            color: var(--primary-green); 
-            margin: 0; 
-            font-size: 36px; 
-            letter-spacing: 2px;
-            text-transform: uppercase; 
-            font-weight: 800;
-        }
+        header h1 { color: var(--primary-green); margin: 0; font-size: 36px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
         header p { margin: 5px 0 0; color: #666; font-style: italic; font-size: 14px; }
 
-        /* --- Sticky Category Navigation --- */
         .category-nav {
             position: sticky;
             top: 0;
@@ -83,106 +73,39 @@
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         .category-nav::-webkit-scrollbar { display: none; }
-        .nav-btn {
-            background: rgba(0,0,0,0.05);
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            white-space: nowrap;
-            font-weight: 600;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 13px;
-        }
+        .nav-btn { background: rgba(0,0,0,0.05); border: none; padding: 8px 18px; border-radius: 20px; white-space: nowrap; font-weight: 600; color: var(--text-color); cursor: pointer; transition: 0.3s; font-size: 13px; }
         .nav-btn:hover { background: var(--primary-green); color: white; }
 
-        .nav-btn[onclick*="momo"] {
-            background: var(--momo-orange) !important;
-            color: white !important;
-            animation: pulse-momo 2s infinite;
-        }
+        .nav-btn[onclick*="momo"] { background: var(--momo-orange) !important; color: white !important; animation: pulse-momo 2s infinite; }
         @keyframes pulse-momo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* --- Offer Bar --- */
-        .offer-slider {
-            background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c);
-            color: white;
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 10px 0;
-            font-weight: bold;
-            font-size: 13px;
-            margin: 15px;
-            border-radius: 12px;
-        }
+        .offer-slider { background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-weight: bold; font-size: 13px; margin: 15px; border-radius: 12px; }
         .offer-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* --- Menu Layout --- */
         .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         
-        h2 { 
-            color: var(--primary-green); 
-            font-size: 20px; 
-            margin: 40px 0 15px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            text-transform: uppercase;
-        }
+        h2 { color: var(--primary-green); font-size: 20px; margin: 40px 0 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
         h2::before { content: ""; width: 4px; height: 20px; background: var(--primary-green); border-radius: 10px; }
         h2#momo { color: var(--momo-orange); }
         h2#momo::before { background: var(--momo-orange); }
 
-        .menu-item { 
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 18px;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: var(--card-shadow);
-            transition: 0.3s;
-            border: 1px solid rgba(0,0,0,0.02);
-            position: relative;
-        }
+        .menu-item { background: var(--card-bg); padding: 18px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--card-shadow); transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); position: relative; }
         .menu-item:hover { transform: translateY(-3px); }
 
-        /* Best Seller Tag */
-        .best-seller-tag {
-            position: absolute;
-            top: -10px;
-            left: 15px;
-            background: #f1c40f;
-            color: #000;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
+        .best-seller-tag { position: absolute; top: -10px; left: 15px; background: #f1c40f; color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
         .momo-badge { font-size: 9px; background: var(--momo-orange); color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: bold; }
 
         .item-info { flex: 1; margin-right: 15px; }
         .item-name { font-weight: 700; display: block; color: var(--text-color); font-size: 15px; margin-bottom: 4px; }
         .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
         
-        .controls { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            background: rgba(0,0,0,0.05); 
-            padding: 5px 12px; 
-            border-radius: 25px; 
-        }
+        .controls { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 12px; border-radius: 25px; }
         .btn-qty { background: var(--primary-green); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
         .qty-val { font-weight: 800; min-width: 20px; text-align: center; color: var(--primary-green); }
 
         .extra-note { text-align: center; margin: 40px 0; font-weight: bold; color: #d35400; background: #fff8e1; padding: 12px; border-radius: 12px; border: 1px dashed #f39c12; }
-
         .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 450px; background: var(--primary-green); color: white; padding: 14px 25px; border-radius: 100px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1000; }
         .order-btn { background: white; color: var(--primary-green); border: none; padding: 10px 22px; border-radius: 50px; font-weight: 800; cursor: pointer; }
 
@@ -217,11 +140,13 @@
 <script>
     const menuData = {
         "Tea ☕": [
+            {n: "Lemon Tea", p: 15, b: true}, {n: "Masala Lemon Tea", p: 20, b: true},
             {n: "Milk Tea (S)", p: 20}, {n: "Milk Tea (L)", p: 30}, {n: "Elaichi Tea", p: 30},
-            {n: "Black Tea", p: 20}, {n: "Lemon Tea", p: 15}, {n: "Masala Lemon Tea", p: 20}, {n: "Green Tea", p: 20}
+            {n: "Black Tea", p: 20}, {n: "Green Tea", p: 20}
         ],
         "Coffee ☕": [
-            {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20}, {n: "Cold Coffee", p: 70},
+            {n: "Cold Coffee", p: 70, b: true},
+            {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20},
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
         ],
         "Momo 🥟": [
@@ -229,8 +154,7 @@
             {n: "Pan-Fried Chicken Momo (6ps)", p: 120}
         ],
         "Burger 🍔": [
-            {n: "Chicken Burger", p: 90, best: true},
-            {n: "Veg Burger", p: 70}, {n: "Veg Cheese Burger", p: 90},
+            {n: "Chicken Burger", p: 90}, {n: "Veg Burger", p: 70}, {n: "Veg Cheese Burger", p: 90},
             {n: "Chicken Cheese Burger", p: 110}, {n: "Grilled Chicken Burger", p: 110}
         ],
         "Sandwich 🥪": [
@@ -238,28 +162,31 @@
             {n: "Chicken Sandwich", p: 100}, {n: "Chicken Cheese Sandwich", p: 120}
         ],
         "Pasta 🍝": [
-            {n: "White Sauce Pasta", p: 110}, {n: "Red Tomato Pasta", p: 110}, {n: "Chicken Pasta", p: 150}
+            {n: "Chicken Pasta", p: 150, b: true},
+            {n: "White Sauce Pasta", p: 110}, {n: "Red Tomato Pasta", p: 110}
         ],
         "Maggie 🍜": [
-            {n: "Veg Maggie", p: 60}, {n: "Maggie (Plain)", p: 50}, {n: "Corn Maggie", p: 70},
-            {n: "Chicken Maggie", p: 90}, {n: "Egg Maggie", p: 70}
+            {n: "Chicken Maggie", p: 90, b: true},
+            {n: "Veg Maggie", p: 60}, {n: "Maggie (Plain)", p: 50}, {n: "Corn Maggie", p: 70}, {n: "Egg Maggie", p: 70}
         ],
         "Salad 🥗": [
-            {n: "High Protein Veg Salad", p: 66}, {n: "High Protein Chicken Salad", p: 150}
+            {n: "High Protein Chicken Salad", p: 150, b: true},
+            {n: "High Protein Veg Salad", p: 66}
         ],
         "Snacks 🍟": [
-            {n: "French Fries (M)", p: 70}, {n: "French Fries (L)", p: 90}, {n: "Peri Peri Fries (M)", p: 100},
-            {n: "Peri Peri Fries (L)", p: 120}, {n: "Fish Finger (5ps)", p: 130}, {n: "Chicken Finger (5ps)", p: 140},
-            {n: "Chicken Nugget (5ps)", p: 90}, {n: "Chicken Cheese Ball", p: 90}
+            {n: "French Fries (M)", p: 70, b: true}, {n: "French Fries (L)", p: 90, b: true},
+            {n: "Chicken Nugget (5ps)", p: 90, b: true},
+            {n: "Peri Peri Fries (M)", p: 100}, {n: "Peri Peri Fries (L)", p: 120},
+            {n: "Fish Finger (5ps)", p: 130}, {n: "Chicken Finger (5ps)", p: 140}, {n: "Chicken Cheese Ball", p: 90}
         ],
         "Beverage 🍹": [
-            {n: "Lime Soda", p: 80}, {n: "Virgin Mojito", p: 80}, {n: "Blue Lagoon", p: 80},
-            {n: "Kacha Mango Mojito", p: 80}, {n: "Green Apple", p: 80}
+            {n: "Blue Lagoon", p: 80, b: true},
+            {n: "Lime Soda", p: 80}, {n: "Virgin Mojito", p: 80}, {n: "Kacha Mango Mojito", p: 80}, {n: "Green Apple", p: 80}
         ],
         "Combos 🎁": [
-            {n: "Fries(M)+Chicken Burger+Soft Drink", p: 150},
-            {n: "Fries(M)+Veg Burger+Veg Sandwich", p: 168},
-            {n: "2 Chicken Sandwich + 5 Fish Finger", p: 270}
+            {n: "Fries(M)+Chicken Burger+Soft Drink", p: 150, b: true},
+            {n: "Fries(M)+Veg Burger+Veg Sandwich", p: 168, b: true},
+            {n: "2 Chicken Sandwich + 5 Fish Finger", p: 270, b: true}
         ]
     };
 
@@ -267,8 +194,7 @@
 
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
-        const btn = document.getElementById('theme-btn');
-        btn.innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        document.getElementById('theme-btn').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
     }
 
     function renderMenu() {
@@ -284,7 +210,7 @@
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let badge = (cat.includes("Momo")) ? (item.n.includes("Pan") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>') : '';
-                let bestTag = item.best ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
+                let bestTag = item.b ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
 
                 menuHtml += `
                 <div class="menu-item">
