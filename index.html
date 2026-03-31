@@ -69,9 +69,23 @@
         }
         .nav-btn:hover, .nav-btn.active { background: var(--primary-green); color: white; }
 
-        /* --- Sliding Offer Bar --- */
+        /* --- Highlight MOMO Button --- */
+        .nav-btn[onclick*="momo"] {
+            background: var(--momo-orange) !important;
+            color: white !important;
+            font-weight: 800;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
+            animation: pulse-momo 2s infinite;
+        }
+        @keyframes pulse-momo {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Sliding Offer Bar (Hybrid) --- */
         .offer-slider {
-            background: #e74c3c;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c);
             color: white;
             overflow: hidden;
             white-space: nowrap;
@@ -80,13 +94,26 @@
             font-size: 13px;
             margin: 15px;
             border-radius: 12px;
+            border: 1px solid #fff;
         }
         .offer-text {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 18s linear infinite;
+            animation: marquee 20s linear infinite;
         }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        .new-label {
+            background: white;
+            color: #e74c3c;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-right: 5px;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         /* --- Menu Layout --- */
         .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
@@ -103,7 +130,6 @@
         }
         h2::before { content: ""; width: 4px; height: 20px; background: var(--primary-green); border-radius: 10px; }
 
-        /* --- MOMO Special Header --- */
         h2#momo { color: var(--momo-orange); }
         h2#momo::before { background: var(--momo-orange); }
 
@@ -121,19 +147,11 @@
         }
         .menu-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
 
-        /* --- Unique MOMO Card Styling --- */
+        /* Momo Card Specific */
         [id="momo"] + .menu-grid .menu-item {
-            border: 1.5px solid rgba(230, 126, 34, 0.4);
+            border: 1.5px solid rgba(230, 126, 34, 0.3);
             background: #fffdfa;
         }
-        
-        @keyframes steam {
-            0% { transform: translateY(0); opacity: 0.5; }
-            50% { transform: translateY(-3px); opacity: 1; }
-            100% { transform: translateY(-6px); opacity: 0; }
-        }
-
-        .momo-icon { display: inline-block; animation: steam 2s infinite; margin-right: 5px; }
 
         .momo-badge {
             font-size: 9px;
@@ -141,7 +159,7 @@
             color: white;
             padding: 2px 8px;
             border-radius: 4px;
-            margin-left: 5px;
+            margin-left: 8px;
             font-weight: bold;
         }
 
@@ -237,7 +255,8 @@
 <div class="container">
     <div class="offer-slider">
         <div class="offer-text">
-            🔥 SPECIAL MEGA OFFER: BUY 2 BURGERS & GET 1 BURGER FREE! ✨ LIMITED TIME ONLY! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
+            <span class="new-label">NEW</span> 🥟 JUST ARRIVED: CRISPY FRIED & PAN-FRIED CHICKEN MOMOS! TRY NOW! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            🔥 MEGA OFFER: BUY 2 BURGERS & GET 1 FREE! 🍔 ENJOY YOUR MEAL AT CAFE INDICA! 🥤
         </div>
     </div>
 
@@ -316,18 +335,16 @@
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let offerTag = (cat === "Burger") ? `<span class="item-offer">⭐ B2G1 FREE APPLIED</span>` : '';
                 
-                // Momo Specific Badge & Icon
-                let momoBadge = "";
-                let momoIcon = "";
+                // Special Badge for Momo
+                let badge = "";
                 if(cat === "Momo") {
-                    momoIcon = '<span class="momo-icon">💨</span>';
-                    momoBadge = item.n.includes("Pan-Fried") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>';
+                    badge = item.n.includes("Pan-Fried") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>';
                 }
 
                 menuHtml += `
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">${momoIcon}${item.n}${momoBadge}</span>
+                        <span class="item-name">${item.n}${badge}</span>
                         <span class="item-price">₹${item.p}</span>
                         ${offerTag}
                     </div>
@@ -381,7 +398,7 @@
             msg += `%0A🎁 *Offer Applied: B2G1 FREE (-₹${disc})*%0A`;
         }
         if (hasMomo) {
-            msg += `%0A👨‍🍳 *Note:* Pack extra Red Chutney & Mayo for Momos!%0A`;
+            msg += `%0A🥟 *Note:* Please pack extra Spicy Chutney & Mayo!%0A`;
         }
         msg += `---------------------------%0A*Total Payable: ₹${total}*`;
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
