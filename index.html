@@ -48,19 +48,11 @@
         }
         .category-nav::-webkit-scrollbar { display: none; }
         
-        /* Navigation Button Style */
         .nav-btn {
             background: rgba(0,0,0,0.05); border: none; padding: 8px 18px; border-radius: 20px;
             white-space: nowrap; font-weight: 600; color: var(--text-color); cursor: pointer; transition: 0.3s; font-size: 13px;
         }
         .nav-btn:hover { background: var(--primary-green); color: white; }
-
-        /* Momo Special Nav Button Style (Slider Gradient) */
-        .momo-nav-special {
-            background: var(--slider-gradient) !important;
-            color: white !important;
-            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
-        }
 
         .offer-slider {
             background: var(--slider-gradient); color: white; overflow: hidden;
@@ -90,9 +82,17 @@
             font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 2;
         }
 
+        /* Burger Offer Style (Italic Green) */
         .applied-offer {
             display: block; font-size: 10.5px; color: #2ecc71; font-weight: 700; 
             font-style: italic; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.3px;
+        }
+
+        /* New Arrival Badge Style (Slider Color) */
+        .new-arrival-badge {
+            display: inline-block; font-size: 10px; background: var(--slider-gradient);
+            color: white; padding: 2px 8px; border-radius: 4px; font-weight: 800;
+            margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
         .item-info { flex: 1; margin-right: 15px; }
@@ -150,8 +150,8 @@
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
         ],
         "Momo 🥟": [
-            {n: "Fried Chicken Momo (6ps)", p: 90},
-            {n: "Pan-Fried Chicken Momo (6ps)", p: 120}
+            {n: "Fried Chicken Momo (6ps)", p: 90, isNew: true},
+            {n: "Pan-Fried Chicken Momo (6ps)", p: 120, isNew: true}
         ],
         "Burger 🍔": [
             {n: "Chicken Burger", p: 90, offer: true, best: true},
@@ -203,10 +203,7 @@
 
         for (const [cat, items] of Object.entries(menuData)) {
             const catId = cat.split(' ')[0].toLowerCase();
-            
-            // Special styling for Momo Button in Nav
-            let specialClass = (catId === "momo") ? "momo-nav-special" : "";
-            navHtml += `<button class="nav-btn ${specialClass}" onclick="document.getElementById('${catId}').scrollIntoView({behavior: 'smooth'})">${cat}</button>`;
+            navHtml += `<button class="nav-btn" onclick="document.getElementById('${catId}').scrollIntoView({behavior: 'smooth'})">${cat}</button>`;
             
             menuHtml += `<h2 id="${catId}">${cat}</h2><div class="menu-grid">`;
             
@@ -214,6 +211,9 @@
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let bestTag = item.best ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
                 let offerTag = item.offer ? '<span class="applied-offer">Buy 2 Get 1 FREE Applied</span>' : '';
+                
+                // NEW ARRIVAL TAG for Momos
+                let newTag = item.isNew ? '<span class="new-arrival-badge">NEW ARRIVAL</span>' : '';
 
                 menuHtml += `
                 <div class="menu-item">
@@ -222,6 +222,7 @@
                         <span class="item-name">${item.n}</span>
                         <span class="item-price">₹${item.p}</span>
                         ${offerTag}
+                        ${newTag}
                     </div>
                     <div class="controls">
                         <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${catId}')">−</button>
