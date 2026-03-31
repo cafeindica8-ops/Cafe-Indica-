@@ -150,12 +150,11 @@
             z-index: 2;
         }
 
-        /* Update: Applied Offer Style changed (No Icon, Price Color, Bold Font) */
         .applied-offer {
             display: block;
             font-size: 11px;
-            color: #2ecc71; /* Same as Price Color */
-            font-weight: 800; /* Extra Bold Font */
+            color: #2ecc71; 
+            font-weight: 800; 
             margin-top: 3px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -224,7 +223,7 @@
             {n: "Pan-Fried Chicken Momo (6ps)", p: 120}
         ],
         "Burger 🍔": [
-            {n: "Chicken Burger", p: 90, offer: true},
+            {n: "Chicken Burger", p: 90, offer: true, best: true},
             {n: "Veg Burger", p: 70, offer: true}, {n: "Veg Cheese Burger", p: 90, offer: true},
             {n: "Chicken Cheese Burger", p: 110, offer: true}, {n: "Grilled Chicken Burger", p: 110, offer: true}
         ],
@@ -274,14 +273,11 @@
         for (const [cat, items] of Object.entries(menuData)) {
             const catId = cat.split(' ')[0].toLowerCase();
             navHtml += `<button class="nav-btn" onclick="document.getElementById('${catId}').scrollIntoView({behavior: 'smooth'})">${cat}</button>`;
-            
             menuHtml += `<h2 id="${catId}">${cat}</h2><div class="menu-grid">`;
             
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let bestTag = item.best ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
-                
-                // Update: Offer text applied without gift icon
                 let offerTag = item.offer ? '<span class="applied-offer">Buy 2 Get 1 FREE Applied</span>' : '';
 
                 menuHtml += `
