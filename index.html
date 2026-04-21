@@ -90,8 +90,7 @@
         .menu-item:hover { transform: translateY(-3px); }
 
         .best-seller-tag { position: absolute; top: -10px; left: 15px; background: #f1c40f; color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
-        .momo-badge { font-size: 9px; background: var(--momo-orange); color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: bold; }
-
+        
         .item-info { flex: 1; margin-right: 15px; }
         .item-name { font-weight: 700; display: block; color: var(--text-color); font-size: 15px; margin-bottom: 4px; }
         .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
@@ -145,6 +144,10 @@
 </div>
 
 <script>
+    // --- UPDATED UPI ID ---
+    const MY_UPI_ID = "8697781622@ibl"; 
+    const MY_NAME = "Abhay Basfore";
+
     const menuData = {
         "Tea ☕": [
             {n: "Milk Tea (S)", p: 20}, {n: "Milk Tea (L)", p: 30}, {n: "Elaichi Tea", p: 30},
@@ -217,14 +220,13 @@
             
             items.forEach(item => {
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
-                let badge = (cat.includes("Momo")) ? (item.n.includes("Pan") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>') : '';
                 let bestTag = item.b ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
 
                 menuHtml += `
                 <div class="menu-item">
                     ${bestTag}
                     <div class="item-info">
-                        <span class="item-name">${item.n}${badge}</span>
+                        <span class="item-name">${item.n}</span>
                         <span class="item-price">₹${item.p}</span>
                     </div>
                     <div class="controls">
@@ -264,15 +266,22 @@
 
     function sendToWhatsApp() {
         const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+        let totalAmt = 0;
         let msg = "🍲 *New Order - Cafe Indica*%0A---------------------------%0A";
-        let total = 0;
         
         for (const i in cart) { 
             msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
-            total += cart[i].qty * cart[i].price;
+            totalAmt += cart[i].qty * cart[i].price;
         }
         
-        msg += `---------------------------%0A*Total: ₹${total}*%0A*Payment:* ${payMethod}%0A%0A✅ *Self-Pickup Order*`;
+        msg += `---------------------------%0A*Total: ₹${totalAmt}*%0A*Payment:* ${payMethod}%0A`;
+
+        if(payMethod === "UPI") {
+            const upiLink = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_NAME)}&am=${totalAmt}&cu=INR`;
+            msg += `%0A💳 *UPI Payment Link:*%0A${upiLink}%0A%0A_Note: Link par click karke payment karein aur screenshot share karein._%0A`;
+        }
+        
+        msg += "%0A✅ *Self-Pickup Order*";
         
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
