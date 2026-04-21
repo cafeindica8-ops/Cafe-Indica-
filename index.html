@@ -76,8 +76,6 @@
         .nav-btn { background: rgba(0,0,0,0.05); border: none; padding: 8px 18px; border-radius: 20px; white-space: nowrap; font-weight: 600; color: var(--text-color); cursor: pointer; transition: 0.3s; font-size: 13px; }
         .nav-btn:hover { background: var(--primary-green); color: white; }
 
-        .nav-btn[onclick*="momo"] { background: var(--momo-orange) !important; color: white !important; }
-
         .offer-slider { background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-weight: bold; font-size: 13px; margin: 15px; border-radius: 12px; }
         .offer-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
@@ -87,8 +85,6 @@
         
         h2 { color: var(--primary-green); font-size: 20px; margin: 40px 0 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
         h2::before { content: ""; width: 4px; height: 20px; background: var(--primary-green); border-radius: 10px; }
-        h2#momo { color: var(--momo-orange); }
-        h2#momo::before { background: var(--momo-orange); }
 
         .menu-item { background: var(--card-bg); padding: 18px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--card-shadow); transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); position: relative; }
         .menu-item:hover { transform: translateY(-3px); }
@@ -129,7 +125,7 @@
 <div class="container">
     <div class="offer-slider">
         <div class="offer-text">
-            🍲 NEW ARRIVAL: CLASSIC CHICKEN STEW & CHICKEN STEW WITH BREAD! TRY NOW! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; ✨ WELCOME TO CAFE INDICA - PREMIUM QUALITY FOOD ✨
+            🍲 NEW ARRIVAL: CHICKEN STEW WITH BREAD AT JUST ₹85! TRY NOW! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; ✨ WELCOME TO CAFE INDICA - FRESH & TASTY ✨
         </div>
     </div>
     <div id="menu-container"></div>
@@ -159,8 +155,7 @@
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
         ],
         "Chicken Stew 🍲": [
-            {n: "Classic Chicken Stew", p: 140, b: true},
-            {n: "Chicken Stew with Bread", p: 160}
+            {n: "Chicken Stew with Bread", p: 85, b: true}
         ],
         "Momo 🥟": [
             {n: "Fried Chicken Momo (6ps)", p: 90},
@@ -270,17 +265,14 @@
     function sendToWhatsApp() {
         const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
         let msg = "🍲 *New Order - Cafe Indica*%0A---------------------------%0A";
-        let total = 0, hasMomo = false;
+        let total = 0;
         
         for (const i in cart) { 
             msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
             total += cart[i].qty * cart[i].price;
-            if(cart[i].cat.includes("momo")) hasMomo = true;
         }
         
-        msg += `---------------------------%0A*Total: ₹${total}*%0A*Payment:* ${payMethod}%0A`;
-        if (hasMomo) msg += "%0A🥟 *Note:* Pack extra Chutney & Mayo!%0A";
-        msg += "%0A✅ *Self-Pickup Order*";
+        msg += `---------------------------%0A*Total: ₹${total}*%0A*Payment:* ${payMethod}%0A%0A✅ *Self-Pickup Order*`;
         
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
