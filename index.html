@@ -76,8 +76,7 @@
         .nav-btn { background: rgba(0,0,0,0.05); border: none; padding: 8px 18px; border-radius: 20px; white-space: nowrap; font-weight: 600; color: var(--text-color); cursor: pointer; transition: 0.3s; font-size: 13px; }
         .nav-btn:hover { background: var(--primary-green); color: white; }
 
-        .nav-btn[onclick*="momo"] { background: var(--momo-orange) !important; color: white !important; animation: pulse-momo 2s infinite; }
-        @keyframes pulse-momo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .nav-btn[onclick*="momo"] { background: var(--momo-orange) !important; color: white !important; }
 
         .offer-slider { background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-weight: bold; font-size: 13px; margin: 15px; border-radius: 12px; }
         .offer-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
@@ -100,14 +99,18 @@
         .item-info { flex: 1; margin-right: 15px; }
         .item-name { font-weight: 700; display: block; color: var(--text-color); font-size: 15px; margin-bottom: 4px; }
         .item-price { color: #2ecc71; font-weight: 700; font-size: 14px; }
-        .item-offer { color: var(--accent-green); font-size: 11px; font-weight: bold; margin-top: 5px; display: block; }
         
         .controls { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 12px; border-radius: 25px; }
         .btn-qty { background: var(--primary-green); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
         .qty-val { font-weight: 800; min-width: 20px; text-align: center; color: var(--primary-green); }
 
         .extra-note { text-align: center; margin: 40px 0; font-weight: bold; color: #d35400; background: #fff8e1; padding: 12px; border-radius: 12px; border: 1px dashed #f39c12; }
-        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 450px; background: var(--primary-green); color: white; padding: 14px 25px; border-radius: 100px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1000; }
+        
+        .payment-options { margin-top: 5px; font-size: 12px; display: flex; gap: 10px; color: white; }
+        .payment-options label { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+
+        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 500px; background: var(--primary-green); color: white; padding: 14px 20px; border-radius: 30px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        .cart-info { flex: 1; }
         .order-btn { background: white; color: var(--primary-green); border: none; padding: 10px 22px; border-radius: 50px; font-weight: 800; cursor: pointer; }
 
         @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
@@ -126,7 +129,7 @@
 <div class="container">
     <div class="offer-slider">
         <div class="offer-text">
-            🥟 NEW ARRIVAL: CRISPY FRIED & PAN-FRIED CHICKEN MOMOS! TRY NOW! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 🔥 MEGA OFFER: BUY 2 BURGERS & GET 1 FREE! 🍔
+            🍲 NEW ARRIVAL: CLASSIC CHICKEN STEW & CHICKEN STEW WITH BREAD! TRY NOW! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; ✨ WELCOME TO CAFE INDICA - PREMIUM QUALITY FOOD ✨
         </div>
     </div>
     <div id="menu-container"></div>
@@ -134,7 +137,14 @@
 </div>
 
 <div class="cart-bar" id="cart-bar">
-    <div><b id="total-qty">0</b> Items | <b id="total-amt">₹0</b></div>
+    <div class="cart-info">
+        <div><b id="total-qty">0</b> Items | <b id="total-amt">₹0</b></div>
+        <div class="payment-options">
+            <span>Pay:</span>
+            <label><input type="radio" name="payMethod" value="UPI" checked> UPI</label>
+            <label><input type="radio" name="payMethod" value="Cash"> Cash</label>
+        </div>
+    </div>
     <button class="order-btn" onclick="sendToWhatsApp()">Order Now &rarr;</button>
 </div>
 
@@ -147,6 +157,10 @@
         "Coffee ☕": [
             {n: "Milk Coffee", p: 35}, {n: "Black Coffee", p: 20}, {n: "Cold Coffee", p: 70, b: true},
             {n: "Vanilla Hot Coffee", p: 50}, {n: "Chocolate Hot Coffee", p: 50}
+        ],
+        "Chicken Stew 🍲": [
+            {n: "Classic Chicken Stew", p: 140, b: true},
+            {n: "Chicken Stew with Bread", p: 160}
         ],
         "Momo 🥟": [
             {n: "Fried Chicken Momo (6ps)", p: 90},
@@ -210,7 +224,6 @@
                 const id = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 let badge = (cat.includes("Momo")) ? (item.n.includes("Pan") ? '<span class="momo-badge">SAUCY</span>' : '<span class="momo-badge">CRISPY</span>') : '';
                 let bestTag = item.b ? '<span class="best-seller-tag">★ BEST SELLER</span>' : '';
-                let offerTag = (cat.includes("Burger")) ? `<span class="item-offer">⭐ B2G1 FREE APPLIED</span>` : '';
 
                 menuHtml += `
                 <div class="menu-item">
@@ -218,7 +231,6 @@
                     <div class="item-info">
                         <span class="item-name">${item.n}${badge}</span>
                         <span class="item-price">₹${item.p}</span>
-                        ${offerTag}
                     </div>
                     <div class="controls">
                         <button class="btn-qty" onclick="updateQty('${item.n}',${item.p},-1,'${id}','${catId}')">−</button>
@@ -242,28 +254,34 @@
 
     function updateCartBar() {
         const bar = document.getElementById('cart-bar');
-        let tQty = 0, tAmt = 0, bQty = 0, bPrice = 0;
+        let tQty = 0, tAmt = 0;
         for (const i in cart) { 
-            tQty += cart[i].qty; tAmt += (cart[i].qty * cart[i].price); 
-            if(cart[i].cat === "burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
+            tQty += cart[i].qty; 
+            tAmt += (cart[i].qty * cart[i].price); 
         }
-        if (bQty >= 3) tAmt -= (Math.floor(bQty/3) * bPrice);
-        if (tQty > 0) { bar.style.display = 'flex'; document.getElementById('total-qty').innerText = tQty; document.getElementById('total-amt').innerText = '₹' + tAmt; }
+        if (tQty > 0) { 
+            bar.style.display = 'flex'; 
+            document.getElementById('total-qty').innerText = tQty; 
+            document.getElementById('total-amt').innerText = '₹' + tAmt; 
+        }
         else bar.style.display = 'none';
     }
 
     function sendToWhatsApp() {
-        let msg = "🍔 *New Order - Cafe Indica*%0A---------------------------%0A";
-        let total = 0, bQty = 0, bPrice = 0, hasMomo = false;
+        const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+        let msg = "🍲 *New Order - Cafe Indica*%0A---------------------------%0A";
+        let total = 0, hasMomo = false;
+        
         for (const i in cart) { 
             msg += `• *${i}* x ${cart[i].qty} = ₹${cart[i].qty * cart[i].price}%0A`; 
             total += cart[i].qty * cart[i].price;
-            if(cart[i].cat === "burger") { bQty += cart[i].qty; bPrice = cart[i].price; }
-            if(cart[i].cat === "momo") hasMomo = true;
+            if(cart[i].cat.includes("momo")) hasMomo = true;
         }
-        if (bQty >= 3) total -= (Math.floor(bQty/3) * bPrice);
+        
+        msg += `---------------------------%0A*Total: ₹${total}*%0A*Payment:* ${payMethod}%0A`;
         if (hasMomo) msg += "%0A🥟 *Note:* Pack extra Chutney & Mayo!%0A";
-        msg += `---------------------------%0A*Total Payable: ₹${total}*`;
+        msg += "%0A✅ *Self-Pickup Order*";
+        
         window.open(`https://wa.me/918697781622?text=${msg}`, '_blank');
     }
     renderMenu();
